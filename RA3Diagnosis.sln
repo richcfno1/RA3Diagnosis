@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RA3Diagnosis", "RA3Diagnosis\RA3Diagnosis.csproj", "{A1BEEBBF-93BC-4F23-8447-97E29A8B2C4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1BEEBBF-93BC-4F23-8447-97E29A8B2C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BEEBBF-93BC-4F23-8447-97E29A8B2C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BEEBBF-93BC-4F23-8447-97E29A8B2C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BEEBBF-93BC-4F23-8447-97E29A8B2C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31C400A8-7C24-4C79-8537-BDB346A692B4}
+	EndGlobalSection
+EndGlobal
