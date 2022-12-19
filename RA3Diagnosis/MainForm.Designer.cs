@@ -1,4 +1,9 @@
-﻿namespace RA3Diagnosis
+﻿using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+
+namespace RA3Diagnosis
 {
     partial class MainForm
     {

@@ -1,3 +1,8 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+
 namespace RA3Diagnosis
 {
     internal static class Program
@@ -11,6 +16,8 @@ namespace RA3Diagnosis
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             //ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
     }

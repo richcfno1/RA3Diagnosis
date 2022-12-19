@@ -1,10 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RA3Diagnosis
 {
@@ -12,14 +7,14 @@ namespace RA3Diagnosis
     {
         public static string GetGamePath()
         {
-            using var view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
             return ra3?.GetValue("Install Dir") as string ?? string.Empty;
         }
 
         public static string GetKey()
         {
-            using var view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3\\ergc");
             return ra3?.GetValue(null) as string ?? string.Empty;
         }
@@ -42,7 +37,7 @@ namespace RA3Diagnosis
 
         public static bool IsGameRegistryPathValid()
         {
-            using var view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
             if (ra3 == null)
             {
@@ -62,13 +57,13 @@ namespace RA3Diagnosis
             {
                 return false;
             }
-            using var view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
             if (ra3 == null)
             {
                 return false;
             }
-            var canReceiveMap = ra3.GetValue("UseLocalUserMap") as int? ?? -1;
+            var canReceiveMap = ra3.GetValue("UseLocalUserMaps") as int? ?? -1;
             if (canReceiveMap != 0)
             {
                 return false;
@@ -78,8 +73,8 @@ namespace RA3Diagnosis
 
         public static void ClearGameRegistry()
         {
-            using var view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-            view32.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", false);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
+            view32.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
         }
 
         public static void FixGameRegistry(string path, string key)
@@ -87,13 +82,13 @@ namespace RA3Diagnosis
             ClearGameRegistry();
 
             path = Path.GetFullPath(path);
-            var readmePath = Path.GetFullPath(Path.Combine(path, "Support", "readme.txt"));
+            var readmePath = Path.GetFullPath(Path.Combine(Path.Combine(path, "Support"), "readme.txt"));
 
-            using var view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
             if (ra3 == null)
             {
-                using var newra3 = view32.CreateSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+                using var newra3 = view32.CreateSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
                 newra3.SetValue("CD Drive", path.Substring(0, 1), RegistryValueKind.String);
                 newra3.SetValue("DisplayName", "Command & Conquer Red Alert 3", RegistryValueKind.String);
                 newra3.SetValue("Install Dir", path, RegistryValueKind.String);
@@ -112,7 +107,7 @@ namespace RA3Diagnosis
                 newra3.SetValue("Suppression Exe", "", RegistryValueKind.String);
                 newra3.SetValue("UseLocalUserMaps", 0, RegistryValueKind.DWord);
                 newra3.SetValue("UserDataLeafName", "Red Alert 3", RegistryValueKind.String);
-                newra3.CreateSubKey("ergc", true).SetValue(null, key, RegistryValueKind.String);
+                newra3.CreateSubKey("ergc").SetValue(null, key, RegistryValueKind.String);
                 return;
             }
         }

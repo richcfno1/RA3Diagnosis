@@ -1,8 +1,12 @@
-using AsmResolver.PE.File;
-using AsmResolver.PE.File.Headers;
 using Microsoft.NodejsTools.SharedProject;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
 
 namespace RA3Diagnosis
 {
@@ -132,7 +136,7 @@ namespace RA3Diagnosis
 
         private void OpenReplaysFolderButton_Click(object sender, EventArgs e)
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3", "Replays");
+            var path = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Replays");
             try
             {
                 if (Directory.Exists(path))
@@ -152,7 +156,7 @@ namespace RA3Diagnosis
 
         private void OpenProfileFolderButton_Click(object sender, EventArgs e)
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3", "Profiles");
+            var path = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3"), "Profiles");
             try
             {
                 if (Directory.Exists(path))
@@ -172,7 +176,7 @@ namespace RA3Diagnosis
 
         private void OpenMapsFolderButton_Click(object sender, EventArgs e)
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3", "Maps");
+            var path = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3"), "Maps");
             try
             {
                 if (Directory.Exists(path))
@@ -192,7 +196,7 @@ namespace RA3Diagnosis
 
         private void OpenModsFolderButton_Click(object sender, EventArgs e)
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3", "Mods");
+            var path = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Mods");
             try
             {
                 if (Directory.Exists(path))
@@ -209,7 +213,7 @@ namespace RA3Diagnosis
                 MessageBox.Show($"尝试打开文件夹的时候发生错误\r\n{ex}");
             }
         }
-        
+
         private bool TryFixRegistry()
         {
             try
@@ -355,7 +359,7 @@ namespace RA3Diagnosis
                 return;
             }
 
-            var possibleUnofficialGamePath = Path.Combine(_selectedPath, "Data", "ra3_1.13.game");
+            var possibleUnofficialGamePath = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.13.game");
             if (File.Exists(possibleUnofficialGamePath))
             {
                 diagnosisResultText.Text += "- 警告 - 游戏版本似乎是1.13而不是1.12，这是一个非官方版本，无法进行多人游戏！\r\n";
@@ -391,29 +395,29 @@ namespace RA3Diagnosis
                 diagnosisResultText.Text += "- 完成 - SkuDef文件路径检查成功。\r\n";
             }
 
-            var gameFilePath = Path.Combine(_selectedPath, "Data", "ra3_1.12.game");
+            var gameFilePath = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.12.game");
             if (File.Exists(gameFilePath))
             {
-                var file = PEFile.FromFile(gameFilePath);
-                if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
-                {
-                    diagnosisResultText.Text += "- 警告 - 未启用内存拓展，可能会导致部分模组无法正确使用。\r\n";
-                    if (MessageBox.Show("是否立刻启用内存拓展？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        file.Write(gameFilePath + ".backup");
-                        file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
-                        file.Write(gameFilePath);
-                        diagnosisResultText.Text += "- 已解决 - 内存拓展已启用。\r\n";
-                    }
-                    else
-                    {
-                        diagnosisResultText.Text += "- 解决方案 - 请点击激活内存拓展。\r\n";
-                    }
-                }
-                else
-                {
-                    diagnosisResultText.Text += "- 完成 - 已启用内存拓展。\r\n";
-                }
+                //var file = PEFile.FromFile(gameFilePath);
+                //if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
+                //{
+                //    diagnosisResultText.Text += "- 警告 - 未启用内存拓展，可能会导致部分模组无法正确使用。\r\n";
+                //    if (MessageBox.Show("是否立刻启用内存拓展？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //    {
+                //        file.Write(gameFilePath + ".backup");
+                //        file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
+                //        file.Write(gameFilePath);
+                //        diagnosisResultText.Text += "- 已解决 - 内存拓展已启用。\r\n";
+                //    }
+                //    else
+                //    {
+                //        diagnosisResultText.Text += "- 解决方案 - 请点击激活内存拓展。\r\n";
+                //    }
+                //}
+                //else
+                //{
+                //    diagnosisResultText.Text += "- 完成 - 已启用内存拓展。\r\n";
+                //}
             }
             else
             {
@@ -445,13 +449,13 @@ namespace RA3Diagnosis
             }
 
             // 开始检查文件夹
-            var replaysPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3", "Replays");
+            var replaysPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Replays");
             CheckFolder("录像文件夹", replaysPath);
-            var modsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3", "Mods");
+            var modsPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Mods");
             CheckFolder("模组文件夹", modsPath);
-            var mapsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3", "Maps");
+            var mapsPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3"), "Maps");
             CheckFolder("地图文件夹", mapsPath);
-            var profilesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3", "Profiles");
+            var profilesPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3"), "Profiles");
             CheckFolder("用户文件夹", profilesPath);
 
             // 开始检查地图文件夹
@@ -490,7 +494,7 @@ namespace RA3Diagnosis
                     var allLines = File.ReadAllLines(options);
                     var result = new List<string>();
                     foreach (var line in allLines)
-                    { 
+                    {
                         if (!line.StartsWith("FirewallPortOverride"))
                         {
                             result.Add(line);
@@ -500,7 +504,7 @@ namespace RA3Diagnosis
                             hasInvalidOption = true;
                         }
                     }
-                    File.WriteAllLines(options, result);
+                    File.WriteAllLines(options, result.ToArray());
                 }
             }
             if (hasInvalidOption)
@@ -541,26 +545,26 @@ namespace RA3Diagnosis
 
         private void MemoryExtensionButton_Click(object sender, EventArgs e)
         {
-            var path = Path.Combine(_selectedPath, "Data", "ra3_1.12.game");
-            if (File.Exists(path))
-            {
-                var file = PEFile.FromFile(path);
-                if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
-                {
-                    file.Write(path + ".backup");
-                    file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
-                    file.Write(path);
-                    MessageBox.Show("备份文件已储存，激活成功！");
-                }
-                else
-                {
-                    MessageBox.Show("已经激活，无需重复激活！");
-                }
-            }
-            else
-            {
-                MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
-            }
+            //var path = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.12.game");
+            //if (File.Exists(path))
+            //{
+            //    var file = PEFile.FromFile(path);
+            //    if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
+            //    {
+            //        file.Write(path + ".backup");
+            //        file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
+            //        file.Write(path);
+            //        MessageBox.Show("备份文件已储存，激活成功！");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("已经激活，无需重复激活！");
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
+            //}
         }
 
         private void LaunchGameButton_Click(object sender, EventArgs e)

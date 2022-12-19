@@ -2,18 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net35</TargetFramework>
 	<LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-	<PublishTrimmed>true</PublishTrimmed>
-	<_SuppressWinFormsTrimError>true</_SuppressWinFormsTrimError>
+    <Platforms>AnyCPU;x86</Platforms>
+	<!--<PublishTrimmed>true</PublishTrimmed>
+	<_SuppressWinFormsTrimError>true</_SuppressWinFormsTrimError>-->
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AsmResolver.PE.File" Version="5.0.0" />
-  </ItemGroup>
-
 </Project>
