@@ -73,8 +73,13 @@ namespace RA3Diagnosis
 
         public static void ClearGameRegistry()
         {
-            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
-            view32.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
+            // Maybe we can not delete because there is not such key!
+            try
+            {
+                using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
+                view32.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
+            }
+            catch { }
         }
 
         public static void FixGameRegistry(string path, string key)

@@ -22,9 +22,9 @@ namespace RA3Diagnosis
 
         public bool TryUpdatePath()
         {
-            if (Registry.IsGamePathValid(Directory.GetCurrentDirectory()))
+            if (Registry.IsGamePathValid(Path.GetFullPath(Directory.GetCurrentDirectory())))
             {
-                _selectedPath = Registry.GetGamePath();
+                _selectedPath = Path.GetFullPath(Directory.GetCurrentDirectory());
                 return true;
             }
             else if (Registry.IsGameRegistryPathValid())
@@ -285,7 +285,7 @@ namespace RA3Diagnosis
             noteLabel1.Name = "noteLabel1";
             noteLabel1.Size = new System.Drawing.Size(320, 20);
             noteLabel1.Font = new Font("Arial", 8);
-            noteLabel1.Text = "警告：错误的CDKEY不会影响游戏";
+            noteLabel1.Text = "不填写或填写错误的CDKEY不会影响修复";
             noteLabel1.Location = new System.Drawing.Point(0, 40);
             inputBox.Controls.Add(noteLabel1);
             var noteLabel2 = new Label();
