@@ -54,6 +54,7 @@ namespace Ra3.Diagnosis
             this.launchGameButton = new System.Windows.Forms.Button();
             this.launchGameCenterButton = new System.Windows.Forms.Button();
             this.memoryExtensionButton = new System.Windows.Forms.Button();
+            this.githubLink = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // selectGamePathButton
@@ -73,7 +74,7 @@ namespace Ra3.Diagnosis
             this.gamePath.Location = new System.Drawing.Point(11, 10);
             this.gamePath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gamePath.Name = "gamePath";
-            this.gamePath.Size = new System.Drawing.Size(85, 15);
+            this.gamePath.Size = new System.Drawing.Size(126, 25);
             this.gamePath.TabIndex = 1;
             this.gamePath.Text = "当前游戏路径";
             // 
@@ -174,7 +175,7 @@ namespace Ra3.Diagnosis
             this.diagnosisResultText.Name = "diagnosisResultText";
             this.diagnosisResultText.ReadOnly = true;
             this.diagnosisResultText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.diagnosisResultText.Size = new System.Drawing.Size(676, 300);
+            this.diagnosisResultText.Size = new System.Drawing.Size(676, 277);
             this.diagnosisResultText.TabIndex = 11;
             this.diagnosisResultText.Text = "暂无诊断";
             // 
@@ -184,7 +185,7 @@ namespace Ra3.Diagnosis
             this.diagnosisResult.Location = new System.Drawing.Point(11, 330);
             this.diagnosisResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.diagnosisResult.Name = "diagnosisResult";
-            this.diagnosisResult.Size = new System.Drawing.Size(85, 15);
+            this.diagnosisResult.Size = new System.Drawing.Size(126, 25);
             this.diagnosisResult.TabIndex = 12;
             this.diagnosisResult.Text = "问题诊断结果";
             // 
@@ -260,11 +261,21 @@ namespace Ra3.Diagnosis
             this.memoryExtensionButton.UseVisualStyleBackColor = true;
             this.memoryExtensionButton.Click += new System.EventHandler(this.MemoryExtensionButton_Click);
             // 
+            // githubLink
+            // 
+            this.githubLink.AutoSize = true;
+            this.githubLink.Location = new System.Drawing.Point(328, 637);
+            this.githubLink.Name = "githubLink";
+            this.githubLink.Size = new System.Drawing.Size(360, 25);
+            this.githubLink.TabIndex = 19;
+            this.githubLink.Text = "https://github.com/richcfno1/RA3Diagnosis";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 688);
+            this.ClientSize = new System.Drawing.Size(698, 671);
+            this.Controls.Add(this.githubLink);
             this.Controls.Add(this.memoryExtensionButton);
             this.Controls.Add(this.launchGameCenterButton);
             this.Controls.Add(this.launchGameButton);
@@ -317,5 +328,6 @@ namespace Ra3.Diagnosis
         private Button launchGameButton;
         private Button launchGameCenterButton;
         private Button memoryExtensionButton;
+        private Label githubLink;
     }
 }
