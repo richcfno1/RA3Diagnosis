@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 
@@ -585,6 +586,16 @@ namespace RA3Diagnosis
             {
                 MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Try to show program version on title.
+                this.Text += $" {Assembly.GetExecutingAssembly().GetName().Version}";
+            }
+            catch { }
         }
     }
 }

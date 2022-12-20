@@ -8,7 +8,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
 	<!--<PublishTrimmed>true</PublishTrimmed>
 	<_SuppressWinFormsTrimError>true</_SuppressWinFormsTrimError>-->
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
 </Project>
