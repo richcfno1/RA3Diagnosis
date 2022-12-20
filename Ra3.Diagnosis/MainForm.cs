@@ -1,14 +1,15 @@
-using Microsoft.NodejsTools.SharedProject;
+ï»¿using Microsoft.NodejsTools.SharedProject;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 
-namespace RA3Diagnosis
+namespace Ra3.Diagnosis
 {
     public partial class MainForm : Form
     {
@@ -54,7 +55,7 @@ namespace RA3Diagnosis
             }
             else
             {
-                gamePathText.Text = "ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡";
+                gamePathText.Text = "æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼";
                 SetButtonState(false);
             }
         }
@@ -77,10 +78,10 @@ namespace RA3Diagnosis
 
         private void SelectGamePathButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("ÇëÑ¡ÔñÓÎÏ·°²×°Ä¿Â¼ÏÂµÄRA3.exeÎÄ¼şÒÔÊ¹ÓÃ±¾¹¤¾ß¡£");
+            MessageBox.Show("è¯·é€‰æ‹©æ¸¸æˆå®‰è£…ç›®å½•ä¸‹çš„RA3.exeæ–‡ä»¶ä»¥ä½¿ç”¨æœ¬å·¥å…·ã€‚");
             using (var openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Title = "Ñ¡ÔñÓÎÏ·°²×°Ä¿Â¼ÏÂµÄRA3.exe";
+                openFileDialog.Title = "é€‰æ‹©æ¸¸æˆå®‰è£…ç›®å½•ä¸‹çš„RA3.exe";
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "RA3 Game |RA3.exe";
                 openFileDialog.FilterIndex = 1;
@@ -90,7 +91,7 @@ namespace RA3Diagnosis
                 {
                     if (!TryUpdatePath(openFileDialog.FileName.Substring(0, openFileDialog.FileName.Length - 8)))
                     {
-                        MessageBox.Show("Õâ²»ÊÇÒ»¸öÕıÈ·µÄÂ·¾¶£¡");
+                        MessageBox.Show("è¿™ä¸æ˜¯ä¸€ä¸ªæ­£ç¡®çš„è·¯å¾„ï¼");
                     }
                 }
             }
@@ -101,7 +102,7 @@ namespace RA3Diagnosis
         {
             if (_selectedPath != null)
             {
-                MessageBox.Show("ÒÑ¸´ÖÆÂ·¾¶µ½¼ôÌù°å£¡");
+                MessageBox.Show("å·²å¤åˆ¶è·¯å¾„åˆ°å‰ªè´´æ¿ï¼");
                 Clipboard.SetText(gamePathText.Text);
             }
         }
@@ -110,7 +111,7 @@ namespace RA3Diagnosis
         {
             if (_selectedPath != null)
             {
-                MessageBox.Show("ÒÑ¸´ÖÆÕï¶Ïµ½¼ôÌù°å£¡");
+                MessageBox.Show("å·²å¤åˆ¶è¯Šæ–­åˆ°å‰ªè´´æ¿ï¼");
                 Clipboard.SetText(diagnosisResultText.Text);
             }
         }
@@ -125,12 +126,12 @@ namespace RA3Diagnosis
                 }
                 else
                 {
-                    MessageBox.Show("ÎÄ¼ş¼Ğ²»´æÔÚ£¡ÇëÑ¡ÔñºìÉ«¾¯½ä3Â·¾¶ºóÖ´ĞĞÕï¶Ï¡£");
+                    MessageBox.Show("æ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼è¯·é€‰æ‹©çº¢è‰²è­¦æˆ’3è·¯å¾„åæ‰§è¡Œè¯Šæ–­ã€‚");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔ´ò¿ªÎÄ¼ş¼ĞµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•æ‰“å¼€æ–‡ä»¶å¤¹çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
         }
 
@@ -145,12 +146,12 @@ namespace RA3Diagnosis
                 }
                 else
                 {
-                    MessageBox.Show("ÎÄ¼ş¼Ğ²»´æÔÚ£¡ÇëÑ¡ÔñºìÉ«¾¯½ä3Â·¾¶ºóÖ´ĞĞÕï¶Ï¡£");
+                    MessageBox.Show("æ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼è¯·é€‰æ‹©çº¢è‰²è­¦æˆ’3è·¯å¾„åæ‰§è¡Œè¯Šæ–­ã€‚");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔ´ò¿ªÎÄ¼ş¼ĞµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•æ‰“å¼€æ–‡ä»¶å¤¹çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
         }
 
@@ -165,12 +166,12 @@ namespace RA3Diagnosis
                 }
                 else
                 {
-                    MessageBox.Show("ÎÄ¼ş¼Ğ²»´æÔÚ£¡ÇëÑ¡ÔñºìÉ«¾¯½ä3Â·¾¶ºóÖ´ĞĞÕï¶Ï¡£");
+                    MessageBox.Show("æ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼è¯·é€‰æ‹©çº¢è‰²è­¦æˆ’3è·¯å¾„åæ‰§è¡Œè¯Šæ–­ã€‚");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔ´ò¿ªÎÄ¼ş¼ĞµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•æ‰“å¼€æ–‡ä»¶å¤¹çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
         }
 
@@ -185,12 +186,12 @@ namespace RA3Diagnosis
                 }
                 else
                 {
-                    MessageBox.Show("ÎÄ¼ş¼Ğ²»´æÔÚ£¡ÇëÑ¡ÔñºìÉ«¾¯½ä3Â·¾¶ºóÖ´ĞĞÕï¶Ï¡£");
+                    MessageBox.Show("æ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼è¯·é€‰æ‹©çº¢è‰²è­¦æˆ’3è·¯å¾„åæ‰§è¡Œè¯Šæ–­ã€‚");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔ´ò¿ªÎÄ¼ş¼ĞµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•æ‰“å¼€æ–‡ä»¶å¤¹çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
         }
 
@@ -205,12 +206,12 @@ namespace RA3Diagnosis
                 }
                 else
                 {
-                    MessageBox.Show("ÎÄ¼ş¼Ğ²»´æÔÚ£¡ÇëÑ¡ÔñºìÉ«¾¯½ä3Â·¾¶ºóÖ´ĞĞÕï¶Ï¡£");
+                    MessageBox.Show("æ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼è¯·é€‰æ‹©çº¢è‰²è­¦æˆ’3è·¯å¾„åæ‰§è¡Œè¯Šæ–­ã€‚");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔ´ò¿ªÎÄ¼ş¼ĞµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•æ‰“å¼€æ–‡ä»¶å¤¹çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
         }
 
@@ -228,22 +229,22 @@ namespace RA3Diagnosis
                             key = Guid.NewGuid().ToString();
                         }
                         Registry.FixGameRegistry(_selectedPath, key);
-                        MessageBox.Show("×¢²á±íĞŞ¸´³É¹¦£¡");
+                        MessageBox.Show("æ³¨å†Œè¡¨ä¿®å¤æˆåŠŸï¼");
                         return true;
                     }
                     else
                     {
-                        MessageBox.Show("ÒÑÈ¡Ïû×¢²á±íĞŞ¸´¡£");
+                        MessageBox.Show("å·²å–æ¶ˆæ³¨å†Œè¡¨ä¿®å¤ã€‚");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡");
+                    MessageBox.Show("æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔĞŞ¸´×¢²á±íµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•ä¿®å¤æ³¨å†Œè¡¨çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
             return false;
         }
@@ -258,11 +259,11 @@ namespace RA3Diagnosis
             try
             {
                 Registry.ClearGameRegistry();
-                MessageBox.Show("×¢²á±íĞ¶ÔØ³É¹¦£¡");
+                MessageBox.Show("æ³¨å†Œè¡¨å¸è½½æˆåŠŸï¼");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"³¢ÊÔĞ¶ÔØ×¢²á±íµÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
+                MessageBox.Show($"å°è¯•å¸è½½æ³¨å†Œè¡¨çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
             }
         }
 
@@ -273,7 +274,7 @@ namespace RA3Diagnosis
 
             inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             inputBox.ClientSize = size;
-            inputBox.Text = "ÇëÊäÈëÄãµÄCDKEY";
+            inputBox.Text = "è¯·è¾“å…¥ä½ çš„CDKEY";
 
             System.Windows.Forms.TextBox textBox = new TextBox();
             textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
@@ -285,14 +286,14 @@ namespace RA3Diagnosis
             noteLabel1.Name = "noteLabel1";
             noteLabel1.Size = new System.Drawing.Size(320, 20);
             noteLabel1.Font = new Font("Arial", 8);
-            noteLabel1.Text = "²»ÌîĞ´»òÌîĞ´´íÎóµÄCDKEY²»»áÓ°ÏìĞŞ¸´";
+            noteLabel1.Text = "ä¸å¡«å†™æˆ–å¡«å†™é”™è¯¯çš„CDKEYä¸ä¼šå½±å“ä¿®å¤";
             noteLabel1.Location = new System.Drawing.Point(0, 40);
             inputBox.Controls.Add(noteLabel1);
             var noteLabel2 = new Label();
             noteLabel2.Name = "noteLabel2";
             noteLabel2.Size = new System.Drawing.Size(320, 20);
             noteLabel2.Font = new Font("Arial", 8);
-            noteLabel2.Text = "µ«ÊÇ¿ÉÄÜÎ¥·´ÁËEAµÄÓÃ»§Ğ­Òé£¡";
+            noteLabel2.Text = "ä½†æ˜¯å¯èƒ½è¿åäº†EAçš„ç”¨æˆ·åè®®ï¼";
             noteLabel2.Location = new System.Drawing.Point(0, 60);
             inputBox.Controls.Add(noteLabel2);
 
@@ -300,7 +301,7 @@ namespace RA3Diagnosis
             okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             okButton.Name = "okButton";
             okButton.Size = new System.Drawing.Size(75, 30);
-            okButton.Text = "&È·ÈÏ";
+            okButton.Text = "&ç¡®è®¤";
             okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 50);
             inputBox.Controls.Add(okButton);
 
@@ -308,7 +309,7 @@ namespace RA3Diagnosis
             cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new System.Drawing.Size(75, 30);
-            cancelButton.Text = "&È¡Ïû";
+            cancelButton.Text = "&å–æ¶ˆ";
             cancelButton.Location = new System.Drawing.Point(size.Width - 80, 50);
             inputBox.Controls.Add(cancelButton);
 
@@ -324,54 +325,54 @@ namespace RA3Diagnosis
         {
             if (Directory.Exists(path))
             {
-                diagnosisResultText.Text += $"- Íê³É - {folderName}¼ì²é³É¹¦¡£\r\n";
+                diagnosisResultText.Text += $"- å®Œæˆ - {folderName}æ£€æŸ¥æˆåŠŸã€‚\r\n";
             }
             else
             {
-                diagnosisResultText.Text += $"- ´íÎó - ÕÒ²»µ½{folderName}¡£\r\n";
-                if (MessageBox.Show($"ÊÇ·ñÁ¢¿Ì´´½¨{folderName}£¿", "ÌáÊ¾", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                diagnosisResultText.Text += $"- é”™è¯¯ - æ‰¾ä¸åˆ°{folderName}ã€‚\r\n";
+                if (MessageBox.Show($"æ˜¯å¦ç«‹åˆ»åˆ›å»º{folderName}ï¼Ÿ", "æç¤º", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     try
                     {
                         Directory.CreateDirectory(path);
-                        diagnosisResultText.Text += $"- ÒÑ½â¾ö - ÒÑ¾­³É¹¦´´½¨{folderName}¡£\r\n";
+                        diagnosisResultText.Text += $"- å·²è§£å†³ - å·²ç»æˆåŠŸåˆ›å»º{folderName}ã€‚\r\n";
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"³¢ÊÔ´´½¨{folderName}µÄÊ±ºò·¢Éú´íÎó\r\n{ex}");
-                        diagnosisResultText.Text += $"- ½â¾ö·½°¸ - ÇëÊÖ¶¯´´½¨{folderName}¡£\r\n";
+                        MessageBox.Show($"å°è¯•åˆ›å»º{folderName}çš„æ—¶å€™å‘ç”Ÿé”™è¯¯\r\n{ex}");
+                        diagnosisResultText.Text += $"- è§£å†³æ–¹æ¡ˆ - è¯·æ‰‹åŠ¨åˆ›å»º{folderName}ã€‚\r\n";
                     }
                 }
                 else
                 {
-                    diagnosisResultText.Text += $"- ½â¾ö·½°¸ - ÇëÊÖ¶¯´´½¨{folderName}¡£\r\n";
+                    diagnosisResultText.Text += $"- è§£å†³æ–¹æ¡ˆ - è¯·æ‰‹åŠ¨åˆ›å»º{folderName}ã€‚\r\n";
                 }
             }
         }
 
         private void DiagnosisGameButton_Click(object sender, EventArgs e)
         {
-            diagnosisResultText.Text = "¿ªÊ¼Õï¶Ï...\r\n";
+            diagnosisResultText.Text = "å¼€å§‹è¯Šæ–­...\r\n";
             if (_selectedPath == null)
             {
-                diagnosisResultText.Text += "ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡\r\n";
+                diagnosisResultText.Text += "æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼\r\n";
                 return;
             }
 
             var possibleUnofficialGamePath = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.13.game");
             if (File.Exists(possibleUnofficialGamePath))
             {
-                diagnosisResultText.Text += "- ¾¯¸æ - ÓÎÏ·°æ±¾ËÆºõÊÇ1.13¶ø²»ÊÇ1.12£¬ÕâÊÇÒ»¸ö·Ç¹Ù·½°æ±¾£¬ÎŞ·¨½øĞĞ¶àÈËÓÎÏ·£¡\r\n";
+                diagnosisResultText.Text += "- è­¦å‘Š - æ¸¸æˆç‰ˆæœ¬ä¼¼ä¹æ˜¯1.13è€Œä¸æ˜¯1.12ï¼Œè¿™æ˜¯ä¸€ä¸ªéå®˜æ–¹ç‰ˆæœ¬ï¼Œæ— æ³•è¿›è¡Œå¤šäººæ¸¸æˆï¼\r\n";
             }
 
             if (_selectedPath.All(x => x < 128))
             {
-                diagnosisResultText.Text += "- Íê³É - ¸ùÄ¿Â¼Â·¾¶¼ì²é³É¹¦¡£\r\n";
+                diagnosisResultText.Text += "- å®Œæˆ - æ ¹ç›®å½•è·¯å¾„æ£€æŸ¥æˆåŠŸã€‚\r\n";
             }
             else
             {
-                diagnosisResultText.Text += "- ´íÎó - ºìÉ«¾¯½ä3°²×°Ä¿Â¼ÉÏÓĞ·ÇASCII×Ö·û£¨ÀıÈçÖĞÎÄ£©¡£\r\n";
-                diagnosisResultText.Text += "- ½â¾ö·½°¸ - Çë¸ü¸Ä°²×°Ä¿Â¼£¬È»ºóĞŞ¸´×¢²á±í¡£\r\n";
+                diagnosisResultText.Text += "- é”™è¯¯ - çº¢è‰²è­¦æˆ’3å®‰è£…ç›®å½•ä¸Šæœ‰éASCIIå­—ç¬¦ï¼ˆä¾‹å¦‚ä¸­æ–‡ï¼‰ã€‚\r\n";
+                diagnosisResultText.Text += "- è§£å†³æ–¹æ¡ˆ - è¯·æ›´æ”¹å®‰è£…ç›®å½•ï¼Œç„¶åä¿®å¤æ³¨å†Œè¡¨ã€‚\r\n";
             }
             var hasInvalidSkuDef = false;
             foreach (var file in Directory.GetFiles(_selectedPath))
@@ -380,18 +381,18 @@ namespace RA3Diagnosis
                 {
                     if (!file.All(x => x < 128))
                     {
-                        diagnosisResultText.Text += $"- ´íÎó - SkuDefÎÄ¼şÉÏ·ÇASCII×Ö·û: {Path.GetFileNameWithoutExtension(file)}¡£\r\n";
+                        diagnosisResultText.Text += $"- é”™è¯¯ - SkuDefæ–‡ä»¶ä¸ŠéASCIIå­—ç¬¦: {Path.GetFileNameWithoutExtension(file)}ã€‚\r\n";
                         hasInvalidSkuDef = true;
                     }
                 }
             }
             if (hasInvalidSkuDef)
             {
-                diagnosisResultText.Text += "- ½â¾ö·½°¸ - ÇëÖØÃüÃûSkuDefÎÄ¼ş²¢±£Ö¤Â·¾¶ÉÏÖ»ÓĞASCII×Ö·û¡£\r\n";
+                diagnosisResultText.Text += "- è§£å†³æ–¹æ¡ˆ - è¯·é‡å‘½åSkuDefæ–‡ä»¶å¹¶ä¿è¯è·¯å¾„ä¸Šåªæœ‰ASCIIå­—ç¬¦ã€‚\r\n";
             }
             else
             {
-                diagnosisResultText.Text += "- Íê³É - SkuDefÎÄ¼şÂ·¾¶¼ì²é³É¹¦¡£\r\n";
+                diagnosisResultText.Text += "- å®Œæˆ - SkuDefæ–‡ä»¶è·¯å¾„æ£€æŸ¥æˆåŠŸã€‚\r\n";
             }
 
             var gameFilePath = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.12.game");
@@ -399,88 +400,88 @@ namespace RA3Diagnosis
             {
                 if (LargeAddress.IsLargeAddressEnabled(gameFilePath))
                 {
-                    diagnosisResultText.Text += "- Íê³É - ÒÑÆôÓÃÄÚ´æÍØÕ¹¡£\r\n";
+                    diagnosisResultText.Text += "- å®Œæˆ - å·²å¯ç”¨å†…å­˜æ‹“å±•ã€‚\r\n";
                 }
                 else
                 {
-                    diagnosisResultText.Text += "- ¾¯¸æ - Î´ÆôÓÃÄÚ´æÍØÕ¹£¬¿ÉÄÜ»áµ¼ÖÂ²¿·ÖÄ£×éÎŞ·¨ÕıÈ·Ê¹ÓÃ¡£\r\n";
-                    if (MessageBox.Show("ÊÇ·ñÁ¢¿ÌÆôÓÃÄÚ´æÍØÕ¹£¿", "ÌáÊ¾", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    diagnosisResultText.Text += "- è­¦å‘Š - æœªå¯ç”¨å†…å­˜æ‹“å±•ï¼Œå¯èƒ½ä¼šå¯¼è‡´éƒ¨åˆ†æ¨¡ç»„æ— æ³•æ­£ç¡®ä½¿ç”¨ã€‚\r\n";
+                    if (MessageBox.Show("æ˜¯å¦ç«‹åˆ»å¯ç”¨å†…å­˜æ‹“å±•ï¼Ÿ", "æç¤º", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         LargeAddress.EnableLargeAddress(gameFilePath);
-                        diagnosisResultText.Text += "- ÒÑ½â¾ö - ÄÚ´æÍØÕ¹ÒÑÆôÓÃ¡£\r\n";
+                        diagnosisResultText.Text += "- å·²è§£å†³ - å†…å­˜æ‹“å±•å·²å¯ç”¨ã€‚\r\n";
                     }
                     else
                     {
-                        diagnosisResultText.Text += "- ½â¾ö·½°¸ - Çëµã»÷¼¤»îÄÚ´æÍØÕ¹¡£\r\n";
+                        diagnosisResultText.Text += "- è§£å†³æ–¹æ¡ˆ - è¯·ç‚¹å‡»æ¿€æ´»å†…å­˜æ‹“å±•ã€‚\r\n";
                     }
                 }
             }
             else
             {
-                MessageBox.Show("ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡");
+                MessageBox.Show("æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼");
             }
 
             if (Registry.IsRegistryValid())
             {
-                diagnosisResultText.Text += "- Íê³É - ×¢²á±í¼ì²é³É¹¦¡£\r\n";
+                diagnosisResultText.Text += "- å®Œæˆ - æ³¨å†Œè¡¨æ£€æŸ¥æˆåŠŸã€‚\r\n";
             }
             else
             {
-                diagnosisResultText.Text += "- ´íÎó - ×¢²á±í´íÎó»ò²»ÍêÕû¡£\r\n";
-                if (MessageBox.Show("ÊÇ·ñÁ¢¿ÌĞŞ¸´×¢²á±í£¿", "ÌáÊ¾", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                diagnosisResultText.Text += "- é”™è¯¯ - æ³¨å†Œè¡¨é”™è¯¯æˆ–ä¸å®Œæ•´ã€‚\r\n";
+                if (MessageBox.Show("æ˜¯å¦ç«‹åˆ»ä¿®å¤æ³¨å†Œè¡¨ï¼Ÿ", "æç¤º", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     if (TryFixRegistry())
                     {
-                        diagnosisResultText.Text += "- ÒÑ½â¾ö - ÒÑ¾­³É¹¦½â¾ö×¢²á±íÎÊÌâ¡£\r\n";
+                        diagnosisResultText.Text += "- å·²è§£å†³ - å·²ç»æˆåŠŸè§£å†³æ³¨å†Œè¡¨é—®é¢˜ã€‚\r\n";
                     }
                     else
                     {
-                        diagnosisResultText.Text += "- ½â¾ö·½°¸ - ÇëĞŞ¸´×¢²á±í¡£\r\n";
+                        diagnosisResultText.Text += "- è§£å†³æ–¹æ¡ˆ - è¯·ä¿®å¤æ³¨å†Œè¡¨ã€‚\r\n";
                     }
                 }
                 else
                 {
-                    diagnosisResultText.Text += "- ½â¾ö·½°¸ - ÇëĞŞ¸´×¢²á±í¡£\r\n";
+                    diagnosisResultText.Text += "- è§£å†³æ–¹æ¡ˆ - è¯·ä¿®å¤æ³¨å†Œè¡¨ã€‚\r\n";
                 }
             }
 
-            // ¿ªÊ¼¼ì²éÎÄ¼ş¼Ğ
+            // å¼€å§‹æ£€æŸ¥æ–‡ä»¶å¤¹
             var replaysPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Replays");
-            CheckFolder("Â¼ÏñÎÄ¼ş¼Ğ", replaysPath);
+            CheckFolder("å½•åƒæ–‡ä»¶å¤¹", replaysPath);
             var modsPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Mods");
-            CheckFolder("Ä£×éÎÄ¼ş¼Ğ", modsPath);
+            CheckFolder("æ¨¡ç»„æ–‡ä»¶å¤¹", modsPath);
             var mapsPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3"), "Maps");
-            CheckFolder("µØÍ¼ÎÄ¼ş¼Ğ", mapsPath);
+            CheckFolder("åœ°å›¾æ–‡ä»¶å¤¹", mapsPath);
             var profilesPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Red Alert 3"), "Profiles");
-            CheckFolder("ÓÃ»§ÎÄ¼ş¼Ğ", profilesPath);
+            CheckFolder("ç”¨æˆ·æ–‡ä»¶å¤¹", profilesPath);
 
-            // ¿ªÊ¼¼ì²éµØÍ¼ÎÄ¼ş¼Ğ
+            // å¼€å§‹æ£€æŸ¥åœ°å›¾æ–‡ä»¶å¤¹
             if (Directory.Exists(mapsPath))
             {
                 var mapsSize = Directory.GetDirectories(mapsPath).Length;
                 if (mapsSize > 200)
                 {
-                    diagnosisResultText.Text += $"- ´íÎó - ÒÑ·¢ÏÖ{mapsSize}ÕÅµØÍ¼£¬Õâ¸öÊıÁ¿¼¸ºõ¿Ï¶¨»áµ¼ÖÂ´íÎó£¬Çëµã»÷´ò¿ªµØÍ¼ÎÄ¼ş¼Ğ£¬È»ºó½«µØÍ¼ÊıÁ¿½µµÍµ½50ÒÔÏÂ¡£\r\n";
+                    diagnosisResultText.Text += $"- é”™è¯¯ - å·²å‘ç°{mapsSize}å¼ åœ°å›¾ï¼Œè¿™ä¸ªæ•°é‡å‡ ä¹è‚¯å®šä¼šå¯¼è‡´é”™è¯¯ï¼Œè¯·ç‚¹å‡»æ‰“å¼€åœ°å›¾æ–‡ä»¶å¤¹ï¼Œç„¶åå°†åœ°å›¾æ•°é‡é™ä½åˆ°50ä»¥ä¸‹ã€‚\r\n";
                 }
                 else if (mapsSize > 100)
                 {
-                    diagnosisResultText.Text += $"- ¾¯¸æ - ÒÑ·¢ÏÖ{mapsSize}ÕÅµØÍ¼£¬Õâ¸öÊıÁ¿ÓĞÒ»¶¨¿ÉÄÜµ¼ÖÂ´íÎó£¬Çëµã»÷´ò¿ªµØÍ¼ÎÄ¼ş¼Ğ£¬È»ºó½«µØÍ¼ÊıÁ¿½µµÍµ½50ÒÔÏÂ¡£\r\n";
+                    diagnosisResultText.Text += $"- è­¦å‘Š - å·²å‘ç°{mapsSize}å¼ åœ°å›¾ï¼Œè¿™ä¸ªæ•°é‡æœ‰ä¸€å®šå¯èƒ½å¯¼è‡´é”™è¯¯ï¼Œè¯·ç‚¹å‡»æ‰“å¼€åœ°å›¾æ–‡ä»¶å¤¹ï¼Œç„¶åå°†åœ°å›¾æ•°é‡é™ä½åˆ°50ä»¥ä¸‹ã€‚\r\n";
                 }
                 else if (mapsSize > 50)
                 {
-                    diagnosisResultText.Text += $"- ¾¯¸æ - ÒÑ·¢ÏÖ{mapsSize}ÕÅµØÍ¼£¬Õâ¸öÊıÁ¿¼¸ºõ²»»áµ¼ÖÂ´íÎó£¬µ«ÈÔ½¨Òé´ò¿ªµØÍ¼ÎÄ¼ş¼Ğ£¬È»ºó½«µØÍ¼ÊıÁ¿½µµÍµ½50ÒÔÏÂ¡£\r\n";
+                    diagnosisResultText.Text += $"- è­¦å‘Š - å·²å‘ç°{mapsSize}å¼ åœ°å›¾ï¼Œè¿™ä¸ªæ•°é‡å‡ ä¹ä¸ä¼šå¯¼è‡´é”™è¯¯ï¼Œä½†ä»å»ºè®®æ‰“å¼€åœ°å›¾æ–‡ä»¶å¤¹ï¼Œç„¶åå°†åœ°å›¾æ•°é‡é™ä½åˆ°50ä»¥ä¸‹ã€‚\r\n";
                 }
                 else
                 {
-                    diagnosisResultText.Text += $"- Íê³É - µØÍ¼ÎÄ¼ş¼Ğ¼ì²éÍê³É£¬ÒÑ·¢ÏÖ{mapsSize}ÕÅµØÍ¼£¬Õâ¸öÊıÁ¿Ò»¶¨²»»áµ¼ÖÂ´íÎó¡£\r\n";
+                    diagnosisResultText.Text += $"- å®Œæˆ - åœ°å›¾æ–‡ä»¶å¤¹æ£€æŸ¥å®Œæˆï¼Œå·²å‘ç°{mapsSize}å¼ åœ°å›¾ï¼Œè¿™ä¸ªæ•°é‡ä¸€å®šä¸ä¼šå¯¼è‡´é”™è¯¯ã€‚\r\n";
                 }
             }
             else
             {
-                diagnosisResultText.Text += "- Ìø¹ı - µØÍ¼ÎÄ¼ş¼Ğ²»´æÔÚ¡£\r\n";
+                diagnosisResultText.Text += "- è·³è¿‡ - åœ°å›¾æ–‡ä»¶å¤¹ä¸å­˜åœ¨ã€‚\r\n";
             }
 
-            // ¿ªÊ¼¼ì²éoptions.ini
+            // å¼€å§‹æ£€æŸ¥options.ini
             var hasInvalidOption = false;
             foreach (var profile in Directory.GetDirectories(profilesPath))
             {
@@ -505,15 +506,15 @@ namespace RA3Diagnosis
             }
             if (hasInvalidOption)
             {
-                diagnosisResultText.Text += "- ÒÑ½â¾ö - ¿ÉÄÜ»áµ¼ÖÂ¶àÈËÓÎÏ·ÎŞ·¨Á¬½ÓµÄ´íÎóÉèÖÃÒÑÉ¾³ı¡£\r\n";
+                diagnosisResultText.Text += "- å·²è§£å†³ - å¯èƒ½ä¼šå¯¼è‡´å¤šäººæ¸¸æˆæ— æ³•è¿æ¥çš„é”™è¯¯è®¾ç½®å·²åˆ é™¤ã€‚\r\n";
             }
             else
             {
-                diagnosisResultText.Text += "- Íê³É - Ã»ÓĞ·¢ÏÖ¿ÉÄÜ»áµ¼ÖÂ´íÎóµÄÉèÖÃ¡£\r\n";
+                diagnosisResultText.Text += "- å®Œæˆ - æ²¡æœ‰å‘ç°å¯èƒ½ä¼šå¯¼è‡´é”™è¯¯çš„è®¾ç½®ã€‚\r\n";
             }
 
-            // ¿ªÊ¼¼ì²éskirmish.ini ºÃ°É Ã»·¨¼ì²é µ«ÊÇ¿ÉÒÔÉ¾
-            if (MessageBox.Show("ÊÇ·ñÓöµ½ÁËÔâÓöÕ½ÎŞ·¨ÕıÈ·Ñ¡ÔñÕóÓª»òÕß¶àÈËÓÎÏ·¿ª·¿³öÏÖÎÊÌâ£¿", "ÌáÊ¾", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            // å¼€å§‹æ£€æŸ¥skirmish.ini å¥½å§ æ²¡æ³•æ£€æŸ¥ ä½†æ˜¯å¯ä»¥åˆ 
+            if (MessageBox.Show("æ˜¯å¦é‡åˆ°äº†é­é‡æˆ˜æ— æ³•æ­£ç¡®é€‰æ‹©é˜µè¥æˆ–è€…å¤šäººæ¸¸æˆå¼€æˆ¿å‡ºç°é—®é¢˜ï¼Ÿ", "æç¤º", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 foreach (var profile in Directory.GetDirectories(profilesPath))
                 {
@@ -523,20 +524,20 @@ namespace RA3Diagnosis
                         File.Delete(skirmish);
                     }
                 }
-                diagnosisResultText.Text += "- ÒÑ½â¾ö - ÔâÓöÕ½»ò¶àÈËÓÎÏ·×¼±¸½çÃæÎÊÌâĞŞ¸´Íê³É¡£\r\n";
+                diagnosisResultText.Text += "- å·²è§£å†³ - é­é‡æˆ˜æˆ–å¤šäººæ¸¸æˆå‡†å¤‡ç•Œé¢é—®é¢˜ä¿®å¤å®Œæˆã€‚\r\n";
             }
             else
             {
-                diagnosisResultText.Text += "- Ìø¹ı - Ã»ÓĞÔâÓöÕ½»ò¶àÈËÓÎÏ·×¼±¸½çÃæÎÊÌâ¡£\r\n";
+                diagnosisResultText.Text += "- è·³è¿‡ - æ²¡æœ‰é­é‡æˆ˜æˆ–å¤šäººæ¸¸æˆå‡†å¤‡ç•Œé¢é—®é¢˜ã€‚\r\n";
             }
 
-            diagnosisResultText.Text += "ÕâÀïÁĞ¾ÙÁËÒ»Ğ©¿ÉÄÜµÄ£¬µ«ÊÇÕâ¸ö¹¤¾ßÎŞ·¨´¦ÀíµÄÇé¿ö£º\r\n";
-            diagnosisResultText.Text += "Èç¹ûÓÎÏ·£¨ÔâÓöÕ½»òÕß¶àÈËÓÎÏ·£©½øÈëÕ½¶·µÄË²¼ä±ÀÀ££¬¿´Â¼Ïñ²»±ÀÀ££¬" +
-                "ºÜÓĞ¿ÉÄÜÊÇWindows Defender»òÕßÆäËû°²È«Èí¼ş×èÖ¹ÁËºìÉ«¾¯½ä3·ÃÎÊÂ¼ÏñÎÄ¼ş¼Ğ¡£" +
-                "Çë¹Ø±ÕÕâĞ©°²È«Èí¼ş¶Ô¡°ÎÄµµ¡±Õâ¸öÄ¿Â¼µÄ±£»¤¡£\r\n";
-            diagnosisResultText.Text += "Èç¹ûÓöµ½ÁË¶àÈËÓÎÏ·Á¬½ÓÊ§°Ü£¬Çë¹Ø±Õ·À»ğÇ½ÔÙÊÔÒ»´Î¡£\r\n";
+            diagnosisResultText.Text += "è¿™é‡Œåˆ—ä¸¾äº†ä¸€äº›å¯èƒ½çš„ï¼Œä½†æ˜¯è¿™ä¸ªå·¥å…·æ— æ³•å¤„ç†çš„æƒ…å†µï¼š\r\n";
+            diagnosisResultText.Text += "å¦‚æœæ¸¸æˆï¼ˆé­é‡æˆ˜æˆ–è€…å¤šäººæ¸¸æˆï¼‰è¿›å…¥æˆ˜æ–—çš„ç¬é—´å´©æºƒï¼Œçœ‹å½•åƒä¸å´©æºƒï¼Œ" +
+                "å¾ˆæœ‰å¯èƒ½æ˜¯Windows Defenderæˆ–è€…å…¶ä»–å®‰å…¨è½¯ä»¶é˜»æ­¢äº†çº¢è‰²è­¦æˆ’3è®¿é—®å½•åƒæ–‡ä»¶å¤¹ã€‚" +
+                "è¯·å…³é—­è¿™äº›å®‰å…¨è½¯ä»¶å¯¹â€œæ–‡æ¡£â€è¿™ä¸ªç›®å½•çš„ä¿æŠ¤ã€‚\r\n";
+            diagnosisResultText.Text += "å¦‚æœé‡åˆ°äº†å¤šäººæ¸¸æˆè¿æ¥å¤±è´¥ï¼Œè¯·å…³é—­é˜²ç«å¢™å†è¯•ä¸€æ¬¡ã€‚\r\n";
 
-            diagnosisResultText.Text += "Õï¶ÏÍê³É\r\n";
+            diagnosisResultText.Text += "è¯Šæ–­å®Œæˆ\r\n";
         }
 
         private void MemoryExtensionButton_Click(object sender, EventArgs e)
@@ -546,18 +547,18 @@ namespace RA3Diagnosis
             {
                 if (LargeAddress.IsLargeAddressEnabled(path))
                 {
-                    MessageBox.Show("ÒÑ¾­¼¤»î£¬ÎŞĞèÖØ¸´¼¤»î£¡");
+                    MessageBox.Show("å·²ç»æ¿€æ´»ï¼Œæ— éœ€é‡å¤æ¿€æ´»ï¼");
                 }
                 else
                 {
                     LargeAddress.EnableLargeAddress(path);
-                    MessageBox.Show("±¸·İÎÄ¼şÒÑ´¢´æ£¬¼¤»î³É¹¦£¡");
+                    MessageBox.Show("å¤‡ä»½æ–‡ä»¶å·²å‚¨å­˜ï¼Œæ¿€æ´»æˆåŠŸï¼");
                 }
 
             }
             else
             {
-                MessageBox.Show("ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡");
+                MessageBox.Show("æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼");
             }
         }
 
@@ -570,7 +571,7 @@ namespace RA3Diagnosis
             }
             else
             {
-                MessageBox.Show("ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡");
+                MessageBox.Show("æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼");
             }
         }
 
@@ -583,8 +584,18 @@ namespace RA3Diagnosis
             }
             else
             {
-                MessageBox.Show("ÎŞ·¨ÕÒµ½ÄãµÄºìÉ«¾¯½ä3£¬Çë°Ñ±¾¹¤¾ß·Åµ½ºìÉ«¾¯½ä3¸ùÄ¿Â¼»òµã»÷ÏÂÃæµÄ°´Å¥ÊÖ¶¯Ñ¡ÔñºìÉ«¾¯½ä3£¡");
+                MessageBox.Show("æ— æ³•æ‰¾åˆ°ä½ çš„çº¢è‰²è­¦æˆ’3ï¼Œè¯·æŠŠæœ¬å·¥å…·æ”¾åˆ°çº¢è‰²è­¦æˆ’3æ ¹ç›®å½•æˆ–ç‚¹å‡»ä¸‹é¢çš„æŒ‰é’®æ‰‹åŠ¨é€‰æ‹©çº¢è‰²è­¦æˆ’3ï¼");
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Try to show program version on title.
+                this.Text += $" {Assembly.GetExecutingAssembly().GetName().Version}";
+            }
+            catch { }
         }
     }
 }

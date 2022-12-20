@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
-namespace RA3Diagnosis
+namespace Ra3.Diagnosis
 {
     internal static class Program
     {

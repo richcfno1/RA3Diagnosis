@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace RA3Diagnosis
+namespace Ra3.Diagnosis
 {
     partial class MainForm
     {
@@ -34,6 +34,7 @@ namespace RA3Diagnosis
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.selectGamePathButton = new System.Windows.Forms.Button();
             this.gamePath = new System.Windows.Forms.Label();
             this.gamePathText = new System.Windows.Forms.TextBox();
@@ -58,7 +59,7 @@ namespace RA3Diagnosis
             // selectGamePathButton
             // 
             this.selectGamePathButton.Location = new System.Drawing.Point(11, 125);
-            this.selectGamePathButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectGamePathButton.Margin = new System.Windows.Forms.Padding(2);
             this.selectGamePathButton.Name = "selectGamePathButton";
             this.selectGamePathButton.Size = new System.Drawing.Size(222, 42);
             this.selectGamePathButton.TabIndex = 0;
@@ -72,14 +73,14 @@ namespace RA3Diagnosis
             this.gamePath.Location = new System.Drawing.Point(11, 10);
             this.gamePath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gamePath.Name = "gamePath";
-            this.gamePath.Size = new System.Drawing.Size(126, 25);
+            this.gamePath.Size = new System.Drawing.Size(85, 15);
             this.gamePath.TabIndex = 1;
             this.gamePath.Text = "当前游戏路径";
             // 
             // gamePathText
             // 
             this.gamePathText.Location = new System.Drawing.Point(11, 37);
-            this.gamePathText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gamePathText.Margin = new System.Windows.Forms.Padding(2);
             this.gamePathText.Multiline = true;
             this.gamePathText.Name = "gamePathText";
             this.gamePathText.ReadOnly = true;
@@ -91,7 +92,7 @@ namespace RA3Diagnosis
             // fixRegistryButton
             // 
             this.fixRegistryButton.Location = new System.Drawing.Point(11, 173);
-            this.fixRegistryButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fixRegistryButton.Margin = new System.Windows.Forms.Padding(2);
             this.fixRegistryButton.Name = "fixRegistryButton";
             this.fixRegistryButton.Size = new System.Drawing.Size(222, 42);
             this.fixRegistryButton.TabIndex = 3;
@@ -102,7 +103,7 @@ namespace RA3Diagnosis
             // openModsFolderButton
             // 
             this.openModsFolderButton.Location = new System.Drawing.Point(238, 221);
-            this.openModsFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openModsFolderButton.Margin = new System.Windows.Forms.Padding(2);
             this.openModsFolderButton.Name = "openModsFolderButton";
             this.openModsFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openModsFolderButton.TabIndex = 5;
@@ -113,7 +114,7 @@ namespace RA3Diagnosis
             // openMapsFolderButton
             // 
             this.openMapsFolderButton.Location = new System.Drawing.Point(238, 269);
-            this.openMapsFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openMapsFolderButton.Margin = new System.Windows.Forms.Padding(2);
             this.openMapsFolderButton.Name = "openMapsFolderButton";
             this.openMapsFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openMapsFolderButton.TabIndex = 6;
@@ -124,7 +125,7 @@ namespace RA3Diagnosis
             // openReplaysFolderButton
             // 
             this.openReplaysFolderButton.Location = new System.Drawing.Point(11, 269);
-            this.openReplaysFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openReplaysFolderButton.Margin = new System.Windows.Forms.Padding(2);
             this.openReplaysFolderButton.Name = "openReplaysFolderButton";
             this.openReplaysFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openReplaysFolderButton.TabIndex = 7;
@@ -135,7 +136,7 @@ namespace RA3Diagnosis
             // openGameRootFolderButton
             // 
             this.openGameRootFolderButton.Location = new System.Drawing.Point(11, 221);
-            this.openGameRootFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openGameRootFolderButton.Margin = new System.Windows.Forms.Padding(2);
             this.openGameRootFolderButton.Name = "openGameRootFolderButton";
             this.openGameRootFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openGameRootFolderButton.TabIndex = 8;
@@ -146,7 +147,7 @@ namespace RA3Diagnosis
             // diagnosisGameButton
             // 
             this.diagnosisGameButton.Location = new System.Drawing.Point(466, 173);
-            this.diagnosisGameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.diagnosisGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.diagnosisGameButton.Name = "diagnosisGameButton";
             this.diagnosisGameButton.Size = new System.Drawing.Size(222, 42);
             this.diagnosisGameButton.TabIndex = 9;
@@ -157,7 +158,7 @@ namespace RA3Diagnosis
             // clearRegistryButton
             // 
             this.clearRegistryButton.Location = new System.Drawing.Point(238, 173);
-            this.clearRegistryButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearRegistryButton.Margin = new System.Windows.Forms.Padding(2);
             this.clearRegistryButton.Name = "clearRegistryButton";
             this.clearRegistryButton.Size = new System.Drawing.Size(222, 42);
             this.clearRegistryButton.TabIndex = 10;
@@ -168,7 +169,7 @@ namespace RA3Diagnosis
             // diagnosisResultText
             // 
             this.diagnosisResultText.Location = new System.Drawing.Point(11, 358);
-            this.diagnosisResultText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.diagnosisResultText.Margin = new System.Windows.Forms.Padding(2);
             this.diagnosisResultText.Multiline = true;
             this.diagnosisResultText.Name = "diagnosisResultText";
             this.diagnosisResultText.ReadOnly = true;
@@ -183,14 +184,14 @@ namespace RA3Diagnosis
             this.diagnosisResult.Location = new System.Drawing.Point(11, 330);
             this.diagnosisResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.diagnosisResult.Name = "diagnosisResult";
-            this.diagnosisResult.Size = new System.Drawing.Size(126, 25);
+            this.diagnosisResult.Size = new System.Drawing.Size(85, 15);
             this.diagnosisResult.TabIndex = 12;
             this.diagnosisResult.Text = "问题诊断结果";
             // 
             // openProfileFolderButton
             // 
             this.openProfileFolderButton.Location = new System.Drawing.Point(466, 269);
-            this.openProfileFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.openProfileFolderButton.Margin = new System.Windows.Forms.Padding(2);
             this.openProfileFolderButton.Name = "openProfileFolderButton";
             this.openProfileFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openProfileFolderButton.TabIndex = 13;
@@ -207,7 +208,7 @@ namespace RA3Diagnosis
             // copyPathButton
             // 
             this.copyPathButton.Location = new System.Drawing.Point(586, 4);
-            this.copyPathButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.copyPathButton.Margin = new System.Windows.Forms.Padding(2);
             this.copyPathButton.Name = "copyPathButton";
             this.copyPathButton.Size = new System.Drawing.Size(102, 35);
             this.copyPathButton.TabIndex = 14;
@@ -218,7 +219,7 @@ namespace RA3Diagnosis
             // copyReportButton
             // 
             this.copyReportButton.Location = new System.Drawing.Point(586, 325);
-            this.copyReportButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.copyReportButton.Margin = new System.Windows.Forms.Padding(2);
             this.copyReportButton.Name = "copyReportButton";
             this.copyReportButton.Size = new System.Drawing.Size(102, 35);
             this.copyReportButton.TabIndex = 15;
@@ -229,7 +230,7 @@ namespace RA3Diagnosis
             // launchGameButton
             // 
             this.launchGameButton.Location = new System.Drawing.Point(238, 125);
-            this.launchGameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.launchGameButton.Margin = new System.Windows.Forms.Padding(2);
             this.launchGameButton.Name = "launchGameButton";
             this.launchGameButton.Size = new System.Drawing.Size(222, 42);
             this.launchGameButton.TabIndex = 16;
@@ -240,7 +241,7 @@ namespace RA3Diagnosis
             // launchGameCenterButton
             // 
             this.launchGameCenterButton.Location = new System.Drawing.Point(466, 125);
-            this.launchGameCenterButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.launchGameCenterButton.Margin = new System.Windows.Forms.Padding(2);
             this.launchGameCenterButton.Name = "launchGameCenterButton";
             this.launchGameCenterButton.Size = new System.Drawing.Size(222, 42);
             this.launchGameCenterButton.TabIndex = 17;
@@ -251,7 +252,7 @@ namespace RA3Diagnosis
             // memoryExtensionButton
             // 
             this.memoryExtensionButton.Location = new System.Drawing.Point(466, 221);
-            this.memoryExtensionButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.memoryExtensionButton.Margin = new System.Windows.Forms.Padding(2);
             this.memoryExtensionButton.Name = "memoryExtensionButton";
             this.memoryExtensionButton.Size = new System.Drawing.Size(222, 42);
             this.memoryExtensionButton.TabIndex = 18;
@@ -261,9 +262,9 @@ namespace RA3Diagnosis
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 671);
+            this.ClientSize = new System.Drawing.Size(704, 688);
             this.Controls.Add(this.memoryExtensionButton);
             this.Controls.Add(this.launchGameCenterButton);
             this.Controls.Add(this.launchGameButton);
@@ -283,11 +284,13 @@ namespace RA3Diagnosis
             this.Controls.Add(this.gamePath);
             this.Controls.Add(this.selectGamePathButton);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(720, 727);
             this.MinimumSize = new System.Drawing.Size(720, 727);
             this.Name = "MainForm";
             this.Text = "红色警戒3 诊断工具";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
