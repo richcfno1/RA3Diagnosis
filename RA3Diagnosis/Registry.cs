@@ -3,7 +3,7 @@ using System.IO;
 
 namespace RA3Diagnosis
 {
-    internal class Registry
+    internal static class Registry
     {
         public static string GetGamePath()
         {

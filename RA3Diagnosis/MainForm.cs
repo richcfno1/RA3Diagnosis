@@ -218,7 +218,7 @@ namespace RA3Diagnosis
         {
             try
             {
-                if (Directory.Exists(_selectedPath))
+                if (_selectedPath != null && Directory.Exists(_selectedPath))
                 {
                     var key = Registry.GetKey();
                     if (ShowKeyDialog(ref key) == DialogResult.OK)
@@ -352,7 +352,6 @@ namespace RA3Diagnosis
         private void DiagnosisGameButton_Click(object sender, EventArgs e)
         {
             diagnosisResultText.Text = "开始诊断...\r\n";
-            diagnosisResultText.Text = "开始游戏本体诊断...\r\n";
             if (_selectedPath == null)
             {
                 diagnosisResultText.Text += "无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！\r\n";
@@ -398,26 +397,23 @@ namespace RA3Diagnosis
             var gameFilePath = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.12.game");
             if (File.Exists(gameFilePath))
             {
-                //var file = PEFile.FromFile(gameFilePath);
-                //if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
-                //{
-                //    diagnosisResultText.Text += "- 警告 - 未启用内存拓展，可能会导致部分模组无法正确使用。\r\n";
-                //    if (MessageBox.Show("是否立刻启用内存拓展？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                //    {
-                //        file.Write(gameFilePath + ".backup");
-                //        file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
-                //        file.Write(gameFilePath);
-                //        diagnosisResultText.Text += "- 已解决 - 内存拓展已启用。\r\n";
-                //    }
-                //    else
-                //    {
-                //        diagnosisResultText.Text += "- 解决方案 - 请点击激活内存拓展。\r\n";
-                //    }
-                //}
-                //else
-                //{
-                //    diagnosisResultText.Text += "- 完成 - 已启用内存拓展。\r\n";
-                //}
+                if (LargeAddress.IsLargeAddressEnabled(gameFilePath))
+                {
+                    diagnosisResultText.Text += "- 完成 - 已启用内存拓展。\r\n";
+                }
+                else
+                {
+                    diagnosisResultText.Text += "- 警告 - 未启用内存拓展，可能会导致部分模组无法正确使用。\r\n";
+                    if (MessageBox.Show("是否立刻启用内存拓展？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        LargeAddress.EnableLargeAddress(gameFilePath);
+                        diagnosisResultText.Text += "- 已解决 - 内存拓展已启用。\r\n";
+                    }
+                    else
+                    {
+                        diagnosisResultText.Text += "- 解决方案 - 请点击激活内存拓展。\r\n";
+                    }
+                }
             }
             else
             {
@@ -545,26 +541,24 @@ namespace RA3Diagnosis
 
         private void MemoryExtensionButton_Click(object sender, EventArgs e)
         {
-            //var path = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.12.game");
-            //if (File.Exists(path))
-            //{
-            //    var file = PEFile.FromFile(path);
-            //    if (!file.FileHeader.Characteristics.HasFlag(Characteristics.LargeAddressAware))
-            //    {
-            //        file.Write(path + ".backup");
-            //        file.FileHeader.Characteristics |= Characteristics.LargeAddressAware;
-            //        file.Write(path);
-            //        MessageBox.Show("备份文件已储存，激活成功！");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("已经激活，无需重复激活！");
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
-            //}
+            var path = Path.Combine(Path.Combine(_selectedPath, "Data"), "ra3_1.12.game");
+            if (File.Exists(path))
+            {
+                if (LargeAddress.IsLargeAddressEnabled(path))
+                {
+                    MessageBox.Show("已经激活，无需重复激活！");
+                }
+                else
+                {
+                    LargeAddress.EnableLargeAddress(path);
+                    MessageBox.Show("备份文件已储存，激活成功！");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
+            }
         }
 
         private void LaunchGameButton_Click(object sender, EventArgs e)

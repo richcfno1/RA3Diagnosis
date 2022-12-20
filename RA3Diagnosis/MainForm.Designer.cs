@@ -57,9 +57,10 @@ namespace RA3Diagnosis
             // 
             // selectGamePathButton
             // 
-            this.selectGamePathButton.Location = new System.Drawing.Point(12, 120);
+            this.selectGamePathButton.Location = new System.Drawing.Point(11, 125);
+            this.selectGamePathButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.selectGamePathButton.Name = "selectGamePathButton";
-            this.selectGamePathButton.Size = new System.Drawing.Size(244, 40);
+            this.selectGamePathButton.Size = new System.Drawing.Size(222, 42);
             this.selectGamePathButton.TabIndex = 0;
             this.selectGamePathButton.Text = "选择红色警戒3游戏路径";
             this.selectGamePathButton.UseVisualStyleBackColor = true;
@@ -68,28 +69,31 @@ namespace RA3Diagnosis
             // gamePath
             // 
             this.gamePath.AutoSize = true;
-            this.gamePath.Location = new System.Drawing.Point(12, 9);
+            this.gamePath.Location = new System.Drawing.Point(11, 10);
+            this.gamePath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.gamePath.Name = "gamePath";
-            this.gamePath.Size = new System.Drawing.Size(118, 24);
+            this.gamePath.Size = new System.Drawing.Size(126, 25);
             this.gamePath.TabIndex = 1;
             this.gamePath.Text = "当前游戏路径";
             // 
             // gamePathText
             // 
-            this.gamePathText.Location = new System.Drawing.Point(12, 36);
+            this.gamePathText.Location = new System.Drawing.Point(11, 37);
+            this.gamePathText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gamePathText.Multiline = true;
             this.gamePathText.Name = "gamePathText";
             this.gamePathText.ReadOnly = true;
             this.gamePathText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.gamePathText.Size = new System.Drawing.Size(744, 78);
+            this.gamePathText.Size = new System.Drawing.Size(676, 81);
             this.gamePathText.TabIndex = 2;
             this.gamePathText.Text = "未知";
             // 
             // fixRegistryButton
             // 
-            this.fixRegistryButton.Location = new System.Drawing.Point(12, 166);
+            this.fixRegistryButton.Location = new System.Drawing.Point(11, 173);
+            this.fixRegistryButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.fixRegistryButton.Name = "fixRegistryButton";
-            this.fixRegistryButton.Size = new System.Drawing.Size(244, 40);
+            this.fixRegistryButton.Size = new System.Drawing.Size(222, 42);
             this.fixRegistryButton.TabIndex = 3;
             this.fixRegistryButton.Text = "修复红色警戒3注册表";
             this.fixRegistryButton.UseVisualStyleBackColor = true;
@@ -97,9 +101,10 @@ namespace RA3Diagnosis
             // 
             // openModsFolderButton
             // 
-            this.openModsFolderButton.Location = new System.Drawing.Point(262, 212);
+            this.openModsFolderButton.Location = new System.Drawing.Point(238, 221);
+            this.openModsFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openModsFolderButton.Name = "openModsFolderButton";
-            this.openModsFolderButton.Size = new System.Drawing.Size(244, 40);
+            this.openModsFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openModsFolderButton.TabIndex = 5;
             this.openModsFolderButton.Text = "打开模组文件夹";
             this.openModsFolderButton.UseVisualStyleBackColor = true;
@@ -107,9 +112,10 @@ namespace RA3Diagnosis
             // 
             // openMapsFolderButton
             // 
-            this.openMapsFolderButton.Location = new System.Drawing.Point(262, 258);
+            this.openMapsFolderButton.Location = new System.Drawing.Point(238, 269);
+            this.openMapsFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openMapsFolderButton.Name = "openMapsFolderButton";
-            this.openMapsFolderButton.Size = new System.Drawing.Size(244, 40);
+            this.openMapsFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openMapsFolderButton.TabIndex = 6;
             this.openMapsFolderButton.Text = "打开地图文件夹";
             this.openMapsFolderButton.UseVisualStyleBackColor = true;
@@ -117,9 +123,10 @@ namespace RA3Diagnosis
             // 
             // openReplaysFolderButton
             // 
-            this.openReplaysFolderButton.Location = new System.Drawing.Point(12, 258);
+            this.openReplaysFolderButton.Location = new System.Drawing.Point(11, 269);
+            this.openReplaysFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openReplaysFolderButton.Name = "openReplaysFolderButton";
-            this.openReplaysFolderButton.Size = new System.Drawing.Size(244, 40);
+            this.openReplaysFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openReplaysFolderButton.TabIndex = 7;
             this.openReplaysFolderButton.Text = "打开录像文件夹";
             this.openReplaysFolderButton.UseVisualStyleBackColor = true;
@@ -127,9 +134,10 @@ namespace RA3Diagnosis
             // 
             // openGameRootFolderButton
             // 
-            this.openGameRootFolderButton.Location = new System.Drawing.Point(12, 212);
+            this.openGameRootFolderButton.Location = new System.Drawing.Point(11, 221);
+            this.openGameRootFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openGameRootFolderButton.Name = "openGameRootFolderButton";
-            this.openGameRootFolderButton.Size = new System.Drawing.Size(244, 40);
+            this.openGameRootFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openGameRootFolderButton.TabIndex = 8;
             this.openGameRootFolderButton.Text = "打开红色警戒3根目录";
             this.openGameRootFolderButton.UseVisualStyleBackColor = true;
@@ -137,9 +145,10 @@ namespace RA3Diagnosis
             // 
             // diagnosisGameButton
             // 
-            this.diagnosisGameButton.Location = new System.Drawing.Point(512, 166);
+            this.diagnosisGameButton.Location = new System.Drawing.Point(466, 173);
+            this.diagnosisGameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.diagnosisGameButton.Name = "diagnosisGameButton";
-            this.diagnosisGameButton.Size = new System.Drawing.Size(244, 40);
+            this.diagnosisGameButton.Size = new System.Drawing.Size(222, 42);
             this.diagnosisGameButton.TabIndex = 9;
             this.diagnosisGameButton.Text = "一键诊断修复问题";
             this.diagnosisGameButton.UseVisualStyleBackColor = true;
@@ -147,9 +156,10 @@ namespace RA3Diagnosis
             // 
             // clearRegistryButton
             // 
-            this.clearRegistryButton.Location = new System.Drawing.Point(262, 166);
+            this.clearRegistryButton.Location = new System.Drawing.Point(238, 173);
+            this.clearRegistryButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.clearRegistryButton.Name = "clearRegistryButton";
-            this.clearRegistryButton.Size = new System.Drawing.Size(244, 40);
+            this.clearRegistryButton.Size = new System.Drawing.Size(222, 42);
             this.clearRegistryButton.TabIndex = 10;
             this.clearRegistryButton.Text = "卸载红色警戒3注册表";
             this.clearRegistryButton.UseVisualStyleBackColor = true;
@@ -157,29 +167,32 @@ namespace RA3Diagnosis
             // 
             // diagnosisResultText
             // 
-            this.diagnosisResultText.Location = new System.Drawing.Point(12, 344);
+            this.diagnosisResultText.Location = new System.Drawing.Point(11, 358);
+            this.diagnosisResultText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.diagnosisResultText.Multiline = true;
             this.diagnosisResultText.Name = "diagnosisResultText";
             this.diagnosisResultText.ReadOnly = true;
             this.diagnosisResultText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.diagnosisResultText.Size = new System.Drawing.Size(744, 288);
+            this.diagnosisResultText.Size = new System.Drawing.Size(676, 300);
             this.diagnosisResultText.TabIndex = 11;
             this.diagnosisResultText.Text = "暂无诊断";
             // 
             // diagnosisResult
             // 
             this.diagnosisResult.AutoSize = true;
-            this.diagnosisResult.Location = new System.Drawing.Point(12, 317);
+            this.diagnosisResult.Location = new System.Drawing.Point(11, 330);
+            this.diagnosisResult.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.diagnosisResult.Name = "diagnosisResult";
-            this.diagnosisResult.Size = new System.Drawing.Size(118, 24);
+            this.diagnosisResult.Size = new System.Drawing.Size(126, 25);
             this.diagnosisResult.TabIndex = 12;
             this.diagnosisResult.Text = "问题诊断结果";
             // 
             // openProfileFolderButton
             // 
-            this.openProfileFolderButton.Location = new System.Drawing.Point(512, 258);
+            this.openProfileFolderButton.Location = new System.Drawing.Point(466, 269);
+            this.openProfileFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openProfileFolderButton.Name = "openProfileFolderButton";
-            this.openProfileFolderButton.Size = new System.Drawing.Size(244, 40);
+            this.openProfileFolderButton.Size = new System.Drawing.Size(222, 42);
             this.openProfileFolderButton.TabIndex = 13;
             this.openProfileFolderButton.Text = "打开用户文件夹";
             this.openProfileFolderButton.UseVisualStyleBackColor = true;
@@ -193,9 +206,10 @@ namespace RA3Diagnosis
             // 
             // copyPathButton
             // 
-            this.copyPathButton.Location = new System.Drawing.Point(644, 4);
+            this.copyPathButton.Location = new System.Drawing.Point(586, 4);
+            this.copyPathButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.copyPathButton.Name = "copyPathButton";
-            this.copyPathButton.Size = new System.Drawing.Size(112, 34);
+            this.copyPathButton.Size = new System.Drawing.Size(102, 35);
             this.copyPathButton.TabIndex = 14;
             this.copyPathButton.Text = "复制";
             this.copyPathButton.UseVisualStyleBackColor = true;
@@ -203,9 +217,10 @@ namespace RA3Diagnosis
             // 
             // copyReportButton
             // 
-            this.copyReportButton.Location = new System.Drawing.Point(644, 312);
+            this.copyReportButton.Location = new System.Drawing.Point(586, 325);
+            this.copyReportButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.copyReportButton.Name = "copyReportButton";
-            this.copyReportButton.Size = new System.Drawing.Size(112, 34);
+            this.copyReportButton.Size = new System.Drawing.Size(102, 35);
             this.copyReportButton.TabIndex = 15;
             this.copyReportButton.Text = "复制";
             this.copyReportButton.UseVisualStyleBackColor = true;
@@ -213,9 +228,10 @@ namespace RA3Diagnosis
             // 
             // launchGameButton
             // 
-            this.launchGameButton.Location = new System.Drawing.Point(262, 120);
+            this.launchGameButton.Location = new System.Drawing.Point(238, 125);
+            this.launchGameButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.launchGameButton.Name = "launchGameButton";
-            this.launchGameButton.Size = new System.Drawing.Size(244, 40);
+            this.launchGameButton.Size = new System.Drawing.Size(222, 42);
             this.launchGameButton.TabIndex = 16;
             this.launchGameButton.Text = "开始游戏";
             this.launchGameButton.UseVisualStyleBackColor = true;
@@ -223,9 +239,10 @@ namespace RA3Diagnosis
             // 
             // launchGameCenterButton
             // 
-            this.launchGameCenterButton.Location = new System.Drawing.Point(512, 120);
+            this.launchGameCenterButton.Location = new System.Drawing.Point(466, 125);
+            this.launchGameCenterButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.launchGameCenterButton.Name = "launchGameCenterButton";
-            this.launchGameCenterButton.Size = new System.Drawing.Size(244, 40);
+            this.launchGameCenterButton.Size = new System.Drawing.Size(222, 42);
             this.launchGameCenterButton.TabIndex = 17;
             this.launchGameCenterButton.Text = "打开控制中心";
             this.launchGameCenterButton.UseVisualStyleBackColor = true;
@@ -233,9 +250,10 @@ namespace RA3Diagnosis
             // 
             // memoryExtensionButton
             // 
-            this.memoryExtensionButton.Location = new System.Drawing.Point(512, 212);
+            this.memoryExtensionButton.Location = new System.Drawing.Point(466, 221);
+            this.memoryExtensionButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.memoryExtensionButton.Name = "memoryExtensionButton";
-            this.memoryExtensionButton.Size = new System.Drawing.Size(244, 40);
+            this.memoryExtensionButton.Size = new System.Drawing.Size(222, 42);
             this.memoryExtensionButton.TabIndex = 18;
             this.memoryExtensionButton.Text = "启动内存拓展";
             this.memoryExtensionButton.UseVisualStyleBackColor = true;
@@ -243,9 +261,9 @@ namespace RA3Diagnosis
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 644);
+            this.ClientSize = new System.Drawing.Size(698, 671);
             this.Controls.Add(this.memoryExtensionButton);
             this.Controls.Add(this.launchGameCenterButton);
             this.Controls.Add(this.launchGameButton);
@@ -264,8 +282,10 @@ namespace RA3Diagnosis
             this.Controls.Add(this.gamePathText);
             this.Controls.Add(this.gamePath);
             this.Controls.Add(this.selectGamePathButton);
-            this.MaximumSize = new System.Drawing.Size(790, 700);
-            this.MinimumSize = new System.Drawing.Size(790, 700);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MaximumSize = new System.Drawing.Size(720, 727);
+            this.MinimumSize = new System.Drawing.Size(720, 727);
             this.Name = "MainForm";
             this.Text = "红色警戒3 诊断工具";
             this.ResumeLayout(false);
