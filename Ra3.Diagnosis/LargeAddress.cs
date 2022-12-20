@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace RA3Diagnosis
+namespace Ra3.Diagnosis
 {
     internal static class LargeAddress
     {
