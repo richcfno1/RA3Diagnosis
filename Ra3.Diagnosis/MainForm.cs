@@ -418,7 +418,8 @@ namespace Ra3.Diagnosis
             }
             else
             {
-                MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
+                diagnosisResultText.Text += "- 错误 - 无法找到.game文件。\r\n";
+                MessageBox.Show("无法找到.game文件，当前正在使用的目录下的红色警戒3可能不完整！");
             }
 
             if (Registry.IsRegistryValid())
@@ -558,7 +559,7 @@ namespace Ra3.Diagnosis
             }
             else
             {
-                MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
+                MessageBox.Show("无法找到.game文件，当前正在使用的目录下的红色警戒3可能不完整！");
             }
         }
 
