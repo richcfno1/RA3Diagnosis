@@ -473,7 +473,7 @@ namespace Ra3.Diagnosis
                 }
                 else
                 {
-                    diagnosisResultText.Text += $"- 完成 - 地图文件夹检查完成，已发现{mapsSize}张地图，这个数量一定不会导致错误。\r\n";
+                    diagnosisResultText.Text += $"- 完成 - 已发现{mapsSize}张地图，这个数量一定不会导致错误。\r\n";
                 }
             }
             else
