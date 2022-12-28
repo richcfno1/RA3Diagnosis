@@ -1,4 +1,4 @@
-![Ra3 Diagnosis 100px](https://pic.imgdb.cn/item/63a1a639b1fccdcd36df95e3.png)
+![Ra3 Diagnosis 100px](Ra3.Diagnosis/Icon.png)
 
 # Ra3.Diagnosis
 
