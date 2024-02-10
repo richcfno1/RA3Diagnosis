@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Ra3.Diagnosis
@@ -115,6 +116,13 @@ namespace Ra3.Diagnosis
                 newra3.CreateSubKey("ergc").SetValue(null, key, RegistryValueKind.String);
                 return;
             }
+        }
+
+        public static void SetLanguage(string language)
+        {
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
+            using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+            ra3.SetValue("language", language, RegistryValueKind.String);
         }
     }
 }
