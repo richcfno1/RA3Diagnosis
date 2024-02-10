@@ -281,6 +281,7 @@ namespace Ra3.Diagnosis
             this.launchGameWindowedButton.TabIndex = 20;
             this.launchGameWindowedButton.Text = "窗口化模式启动游戏";
             this.launchGameWindowedButton.UseVisualStyleBackColor = true;
+            this.launchGameWindowedButton.Click += new System.EventHandler(this.LaunchGameWindowedButton_Click);
             // 
             // fixGameLanguageButton
             // 

@@ -562,7 +562,7 @@ namespace Ra3.Diagnosis
             }
 
             diagnosisResultText.Text += "这里列举了一些可能的，但是这个工具无法处理的情况：\r\n";
-            diagnosisResultText.Text += "假如启动游戏时提示没有安装 DirectX 9.0c，请尝试先用「窗口化模式」启动游戏，并在游戏设置里修改分辨率\r\n";
+            diagnosisResultText.Text += "假如启动游戏时提示没有安装 DirectX 9.0c 等 DirectX 错误，请尝试先用「窗口化模式」启动游戏，并在游戏设置里修改分辨率\r\n";
             diagnosisResultText.Text += "如果游戏（遭遇战或者多人游戏）进入战斗的瞬间崩溃，看录像不崩溃，" +
                 "很有可能是Windows Defender或者其他安全软件阻止了红色警戒3访问录像文件夹。" +
                 "请关闭这些安全软件对“文档”这个目录的保护。\r\n";
@@ -656,6 +656,19 @@ namespace Ra3.Diagnosis
                 }
                 Registry.SetLanguage(candidate);
                 diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+            }
+        }
+
+        private void LaunchGameWindowedButton_Click(object sender, EventArgs e)
+        {
+            var path = Path.Combine(_selectedPath, "RA3.exe");
+            if (File.Exists(path))
+            {
+                SystemUtility.ExecuteProcessUnElevated(path, "-win");
+            }
+            else
+            {
+                MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
             }
         }
     }
