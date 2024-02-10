@@ -63,12 +63,14 @@ namespace Ra3.Diagnosis
         public void SetButtonState(bool hasValidPath)
         {
             selectGamePathButton.Enabled = true;
+            diagnosisGameButton.Enabled = hasValidPath;
             launchGameButton.Enabled = hasValidPath;
             launchGameCenterButton.Enabled = hasValidPath;
-            diagnosisGameButton.Enabled = hasValidPath;
-            memoryExtensionButton.Enabled = hasValidPath;
             fixRegistryButton.Enabled = hasValidPath;
             clearRegistryButton.Enabled = hasValidPath;
+            memoryExtensionButton.Enabled = hasValidPath;
+            fixGameLanguageButton.Enabled = hasValidPath;
+            launchGameWindowedButton.Enabled = hasValidPath;
             openGameRootFolderButton.Enabled = hasValidPath;
             openMapsFolderButton.Enabled = hasValidPath;
             openModsFolderButton.Enabled = hasValidPath;
@@ -446,6 +448,33 @@ namespace Ra3.Diagnosis
                 }
             }
 
+            diagnosisResultText.Text += "开始修复语言文件...\r\n";
+            foreach (var file in GameLanguage.FindInvalidLanguageFiles())
+            {
+                diagnosisResultText.Text += $"- 正在删除无效的语言文件：{file.Name}。\r\n";
+                file.Delete();
+            }
+            var validLanguages = GameLanguage.FindValidLanguages();
+            if (validLanguages.Length == 0)
+            {
+                MessageBox.Show("没有找到任何有效的语言文件！请检查你的游戏是否完整。");
+            }
+            else
+            {
+                var candidate = validLanguages.First();
+                diagnosisResultText.Text += $"- 已找到{validLanguages.Length}种有效的语言文件！\r\n";
+                foreach (var language in validLanguages)
+                {
+                    if (language.StartsWith("chinese"))
+                    {
+                        candidate = language;
+                    }
+                    diagnosisResultText.Text += $"- {language}。\r\n";
+                }
+                Registry.SetLanguage(candidate);
+                diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+            }
+
             // 开始检查文件夹
             var replaysPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Red Alert 3"), "Replays");
             CheckFolder("录像文件夹", replaysPath);
@@ -533,6 +562,7 @@ namespace Ra3.Diagnosis
             }
 
             diagnosisResultText.Text += "这里列举了一些可能的，但是这个工具无法处理的情况：\r\n";
+            diagnosisResultText.Text += "假如启动游戏时提示没有安装 DirectX 9.0c 等 DirectX 错误，请尝试先用「窗口化模式」启动游戏，并在游戏设置里修改分辨率\r\n";
             diagnosisResultText.Text += "如果游戏（遭遇战或者多人游戏）进入战斗的瞬间崩溃，看录像不崩溃，" +
                 "很有可能是Windows Defender或者其他安全软件阻止了红色警戒3访问录像文件夹。" +
                 "请关闭这些安全软件对“文档”这个目录的保护。\r\n";
@@ -597,6 +627,49 @@ namespace Ra3.Diagnosis
                 this.Text += $" {Assembly.GetExecutingAssembly().GetName().Version}";
             }
             catch { }
+        }
+
+        private void FixGameLanguageButton_Click(object sender, EventArgs e)
+        {
+            diagnosisResultText.Text = "开始修复语言文件...\r\n";
+            foreach (var file in GameLanguage.FindInvalidLanguageFiles())
+            {
+                diagnosisResultText.Text += $"- 正在删除无效的语言文件：{file.Name}。\r\n";
+                file.Delete();
+            }
+            var validLanguages = GameLanguage.FindValidLanguages();
+            if (validLanguages.Length == 0)
+            {
+                MessageBox.Show("没有找到任何有效的语言文件！请检查你的游戏是否完整。");
+            }
+            else
+            {
+                var candidate = validLanguages.First();
+                diagnosisResultText.Text += $"- 已找到{validLanguages.Length}种有效的语言文件！\r\n";
+                foreach (var language in validLanguages)
+                {
+                    if (language.StartsWith("chinese"))
+                    {
+                        candidate = language;
+                    }
+                    diagnosisResultText.Text += $"- {language}。\r\n";
+                }
+                Registry.SetLanguage(candidate);
+                diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+            }
+        }
+
+        private void LaunchGameWindowedButton_Click(object sender, EventArgs e)
+        {
+            var path = Path.Combine(_selectedPath, "RA3.exe");
+            if (File.Exists(path))
+            {
+                SystemUtility.ExecuteProcessUnElevated(path, "-win");
+            }
+            else
+            {
+                MessageBox.Show("无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！");
+            }
         }
     }
 }
