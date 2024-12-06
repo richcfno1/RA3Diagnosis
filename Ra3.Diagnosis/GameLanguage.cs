@@ -5,9 +5,12 @@ namespace Ra3.Diagnosis
 {
     internal static class GameLanguage
     {
-        public static string[] FindValidLanguages()
+        public static string[] FindValidLanguages(string gamePath = "")
         {
-            var gamePath = Registry.GetGamePath();
+            if (string.IsNullOrEmpty(gamePath))
+            {
+                gamePath = Registry.GetGamePath();
+            }
             if (string.IsNullOrEmpty(gamePath))
             {
                 return new string[0];
@@ -30,9 +33,12 @@ namespace Ra3.Diagnosis
             return result.ToArray();
         }
 
-        public static FileInfo[] FindInvalidLanguageFiles()
+        public static FileInfo[] FindInvalidLanguageFiles(string gamePath = "")
         {
-            var gamePath = Registry.GetGamePath();
+            if (string.IsNullOrEmpty(gamePath))
+            {
+                gamePath = Registry.GetGamePath();
+            }
             if (string.IsNullOrEmpty(gamePath))
             {
                 return new FileInfo[0];

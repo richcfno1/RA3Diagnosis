@@ -449,12 +449,12 @@ namespace Ra3.Diagnosis
             }
 
             diagnosisResultText.Text += "开始修复语言文件...\r\n";
-            foreach (var file in GameLanguage.FindInvalidLanguageFiles())
+            foreach (var file in GameLanguage.FindInvalidLanguageFiles(_selectedPath))
             {
                 diagnosisResultText.Text += $"- 正在删除无效的语言文件：{file.Name}。\r\n";
                 file.Delete();
             }
-            var validLanguages = GameLanguage.FindValidLanguages();
+            var validLanguages = GameLanguage.FindValidLanguages(_selectedPath);
             if (validLanguages.Length == 0)
             {
                 MessageBox.Show("没有找到任何有效的语言文件！请检查你的游戏是否完整。");
@@ -471,8 +471,37 @@ namespace Ra3.Diagnosis
                     }
                     diagnosisResultText.Text += $"- {language}。\r\n";
                 }
-                Registry.SetLanguage(candidate);
-                diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+                var success = Registry.SetLanguage(candidate);
+                if (success)
+                {
+                    diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+                }
+                else
+                {
+                    diagnosisResultText.Text += "- 错误 - 注册表错误或不完整，无法修复语言文件。\r\n";
+                    if (MessageBox.Show("是否立刻修复注册表？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        if (TryFixRegistry())
+                        {
+                            if (Registry.SetLanguage(candidate))
+                            {
+                                diagnosisResultText.Text += $"- 已解决 - 已经成功解决注册表并选择{candidate}作为默认语言。\r\n";
+                            }
+                            else
+                            {
+                                diagnosisResultText.Text += "- 解决方案 - 请修复注册表和语言文件。\r\n";
+                            }
+                        }
+                        else
+                        {
+                            diagnosisResultText.Text += "- 解决方案 - 请修复注册表和语言文件。\r\n";
+                        }
+                    }
+                    else
+                    {
+                        diagnosisResultText.Text += "- 解决方案 - 请修复注册表和语言文件。\r\n";
+                    }
+                }
             }
 
             // 开始检查文件夹
@@ -631,13 +660,18 @@ namespace Ra3.Diagnosis
 
         private void FixGameLanguageButton_Click(object sender, EventArgs e)
         {
+            if (_selectedPath == null)
+            {
+                diagnosisResultText.Text += "无法找到你的红色警戒3，请把本工具放到红色警戒3根目录或点击下面的按钮手动选择红色警戒3！\r\n";
+                return;
+            }
             diagnosisResultText.Text = "开始修复语言文件...\r\n";
-            foreach (var file in GameLanguage.FindInvalidLanguageFiles())
+            foreach (var file in GameLanguage.FindInvalidLanguageFiles(_selectedPath!))
             {
                 diagnosisResultText.Text += $"- 正在删除无效的语言文件：{file.Name}。\r\n";
                 file.Delete();
             }
-            var validLanguages = GameLanguage.FindValidLanguages();
+            var validLanguages = GameLanguage.FindValidLanguages(_selectedPath!);
             if (validLanguages.Length == 0)
             {
                 MessageBox.Show("没有找到任何有效的语言文件！请检查你的游戏是否完整。");
@@ -654,8 +688,37 @@ namespace Ra3.Diagnosis
                     }
                     diagnosisResultText.Text += $"- {language}。\r\n";
                 }
-                Registry.SetLanguage(candidate);
-                diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+                var success = Registry.SetLanguage(candidate);
+                if (success)
+                {
+                    diagnosisResultText.Text += $"- 已选择{candidate}作为默认语言。\r\n";
+                }
+                else
+                {
+                    diagnosisResultText.Text += "- 错误 - 注册表错误或不完整，无法修复语言文件。\r\n";
+                    if (MessageBox.Show("是否立刻修复注册表？", "提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        if (TryFixRegistry())
+                        {
+                            if (Registry.SetLanguage(candidate))
+                            {
+                                diagnosisResultText.Text += $"- 已解决 - 已经成功解决注册表并选择{candidate}作为默认语言。\r\n";
+                            }
+                            else
+                            {
+                                diagnosisResultText.Text += "- 解决方案 - 请修复注册表和语言文件。\r\n";
+                            }
+                        }
+                        else
+                        {
+                            diagnosisResultText.Text += "- 解决方案 - 请修复注册表和语言文件。\r\n";
+                        }
+                    }
+                    else
+                    {
+                        diagnosisResultText.Text += "- 解决方案 - 请修复注册表和语言文件。\r\n";
+                    }
+                }
             }
         }
 

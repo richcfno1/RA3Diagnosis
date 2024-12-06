@@ -118,11 +118,16 @@ namespace Ra3.Diagnosis
             }
         }
 
-        public static void SetLanguage(string language)
+        public static bool SetLanguage(string language)
         {
-            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
+            using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+            if (ra3 == null)
+            {
+                return false;
+            }
             ra3.SetValue("language", language, RegistryValueKind.String);
+            return true;
         }
     }
 }
