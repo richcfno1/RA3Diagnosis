@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 
 
 
@@ -24,27 +25,47 @@ namespace Ra3.Diagnosis
             var args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
             {
-                if (args[1] == "--silent-fix" && args.Length >= 3)
+                if (args[1].StartsWith("--fix"))
                 {
-                    // Get Current Program Path
-                    var path = Path.GetFullPath(args[2]);
-                    var key = System.Guid.NewGuid().ToString().Replace("-", "");
-                    if (args.Length >= 4)
+                    var targetPath = Environment.CurrentDirectory;
+                    var fullFixArg = args[1].Replace("--fix", "");
+                    if (fullFixArg.StartsWith("="))
                     {
-                        // Has key
-                        key = args[3];
+                        // Custom target Path
+                        targetPath = fullFixArg.Substring(1);
+                    }
+
+                    var path = Path.GetFullPath(targetPath);
+                    var key = "auto" + Guid.NewGuid().ToString().Replace("-", "").Substring(4);
+                    // Fix Game Registry
+                    Registry.FixGameRegistry(path, key);
+
+                    // Fix Language
+                    foreach (var file in GameLanguage.FindInvalidLanguageFiles(path))
+                    {
+                        file.Delete();
+                    }
+                    var validLanguages = GameLanguage.FindValidLanguages(path);
+                    if (validLanguages.Length == 0)
+                    {
+                        return;
                     }
                     else
                     {
-                        Console.WriteLine($"Warning: No key specified, generating a new one:{key}");
+                        var candidate = validLanguages.First();
+                        foreach (var language in validLanguages)
+                        {
+                            if (language.StartsWith("chinese"))
+                            {
+                                candidate = language;
+                            }
+                        }
+                        Registry.SetLanguage(candidate);
+                        return;
                     }
-                    var message = $"FixGameRegistry\n - Path:{path}\n - Key:{key}";
-                    Console.WriteLine(message);
-                    Registry.FixGameRegistry(path, key);
-                    return;
                 }
 
-                if (args[1] == "--silent-clear")
+                if (args[1] == "--clear")
                 {
                     Registry.ClearGameRegistry();
                     return;
