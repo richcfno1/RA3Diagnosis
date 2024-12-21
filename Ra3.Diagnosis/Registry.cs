@@ -132,8 +132,9 @@ namespace Ra3.Diagnosis
             {
                 return false;
             }
-            ra3.SetValue("language", languageMap[language], RegistryValueKind.String);
-            return true;
+            var languageToSet = languageMap.ContainsKey(language) ? languageMap[language] : language;
+            ra3.SetValue("language", languageToSet, RegistryValueKind.String);
+            return true;    
         }
     }
 }
