@@ -6,6 +6,12 @@ namespace Ra3.Diagnosis
 {
     internal static class Registry
     {
+        public static Dictionary<string, string> languageMap = new() {
+            { "english", "English (US)" },
+            { "chinese_t", "Chinese (Traditional)" },
+            { "chinese_s", "Chinese (Simplified)" },
+        };
+
         public static string GetGamePath()
         {
             using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
@@ -126,7 +132,7 @@ namespace Ra3.Diagnosis
             {
                 return false;
             }
-            ra3.SetValue("language", language, RegistryValueKind.String);
+            ra3.SetValue("language", languageMap[language], RegistryValueKind.String);
             return true;
         }
     }
