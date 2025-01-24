@@ -66,6 +66,7 @@ namespace Ra3.Diagnosis
             }
             using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+            // Register RegistryHive.CurrentUser because some old tools incorrectly use it...
             using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
             using var ra3Cu = viewCu.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
 
@@ -89,6 +90,7 @@ namespace Ra3.Diagnosis
                 using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
                 view32.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
 
+                // Register RegistryHive.CurrentUser because some old tools incorrectly use it...
                 using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
                 viewCu.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
             }
@@ -130,6 +132,7 @@ namespace Ra3.Diagnosis
             }
 
             // 修复注册表 (HKCU)
+            // Register RegistryHive.CurrentUser because some old tools incorrectly use it...
             using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
             using var ra3Cu = viewCu.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
             if (ra3Cu == null)
