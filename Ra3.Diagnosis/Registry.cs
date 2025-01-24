@@ -66,7 +66,11 @@ namespace Ra3.Diagnosis
             }
             using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
-            if (ra3 == null)
+            // Register RegistryHive.CurrentUser because some old tools incorrectly use it...
+            using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
+            using var ra3Cu = viewCu.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+
+            if (ra3 == null || ra3Cu == null)
             {
                 return false;
             }
@@ -85,6 +89,10 @@ namespace Ra3.Diagnosis
             {
                 using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
                 view32.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
+
+                // Register RegistryHive.CurrentUser because some old tools incorrectly use it...
+                using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
+                viewCu.DeleteSubKeyTree("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
             }
             catch { }
         }
@@ -96,6 +104,7 @@ namespace Ra3.Diagnosis
             path = Path.GetFullPath(path);
             var readmePath = Path.GetFullPath(Path.Combine(Path.Combine(path, "Support"), "readme.txt"));
 
+            // 修复注册表 (HKLM)
             using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
             if (ra3 == null)
@@ -120,7 +129,16 @@ namespace Ra3.Diagnosis
                 newra3.SetValue("UseLocalUserMaps", 0, RegistryValueKind.DWord);
                 newra3.SetValue("UserDataLeafName", "Red Alert 3", RegistryValueKind.String);
                 newra3.CreateSubKey("ergc").SetValue(null, key, RegistryValueKind.String);
-                return;
+            }
+
+            // 修复注册表 (HKCU)
+            // Register RegistryHive.CurrentUser because some old tools incorrectly use it...
+            using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
+            using var ra3Cu = viewCu.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+            if (ra3Cu == null)
+            {
+                var newRa3Cu = viewCu.CreateSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3");
+                newRa3Cu.SetValue("Language", "english", RegistryValueKind.String);
             }
         }
 
@@ -128,13 +146,23 @@ namespace Ra3.Diagnosis
         {
             using var view32 = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, string.Empty);
             using var ra3 = view32.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+
+            using var viewCu = RegistryKey.OpenRemoteBaseKey(RegistryHive.CurrentUser, string.Empty);
+            using var ra3Cu = viewCu.OpenSubKey("Software\\Electronic Arts\\Electronic Arts\\Red Alert 3", true);
+
             if (ra3 == null)
             {
                 return false;
             }
+            if (ra3Cu == null)
+            {
+                return false;
+            }
+
             var languageToSet = languageMap.ContainsKey(language) ? languageMap[language] : language;
             ra3.SetValue("language", languageToSet, RegistryValueKind.String);
-            return true;    
+            ra3Cu.SetValue("Language", language, RegistryValueKind.String);
+            return true;
         }
     }
 }
